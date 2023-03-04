@@ -5,11 +5,11 @@ using UnityEngine;
 public class HumanMenuController : MonoBehaviour
 {
     public GameObject mainButtonCollection = default;
-    public GameObject bodyButtonCollection = default;
-    public GameObject heartButtonCollection = default;
-    public GameObject armButtonCollection = default;
+    public List<GameObject> menuButtonCollection = default;
 
     public GameObject buttonReturn = default;
+    
+    private int currentIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,36 +21,18 @@ public class HumanMenuController : MonoBehaviour
     {
     }
 
-    public void handleBodyMenuButton()
+    public void HandleMenuButton(int index)
     {
-        mainButtonCollection.SetActive(false);
-        bodyButtonCollection.SetActive(true);
-        buttonReturn.SetActive(true);
-    }
-
-    public void handleHeartMenuButton()
-    {
-        mainButtonCollection.SetActive(false);
-        heartButtonCollection.SetActive(true);
-        buttonReturn.SetActive(true);
-    }
-
-    public void handleArmMenuButton()
-    {
-        mainButtonCollection.SetActive(false);
-        armButtonCollection.SetActive(true);
-        buttonReturn.SetActive(true);
-    }
-
-    public void handleReturnMenuButton()
-    {
-        if (bodyButtonCollection != null)
-            bodyButtonCollection.SetActive(false);
-        if (heartButtonCollection != null)
-            heartButtonCollection.SetActive(false);
-        if (armButtonCollection != null)
-            armButtonCollection.SetActive(false);
+        currentIndex = index;
         
+        mainButtonCollection.SetActive(false);
+        menuButtonCollection[index].SetActive(true);
+        buttonReturn.SetActive(true);
+    }
+    
+    public void HandleReturnMenuButton()
+    {
+        menuButtonCollection[currentIndex].SetActive(false);
         mainButtonCollection.SetActive(true);
         buttonReturn.SetActive(false);
     }

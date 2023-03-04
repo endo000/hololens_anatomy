@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class HumanLayerController : MonoBehaviour
 {
-    public List<GameObject> humanOrgans = default;
+    private List<Transform> children = new List<Transform>();
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var organ in humanOrgans)
+        for(int i = 0; i < transform.childCount; i++)
         {
-            // organ.SetActive(humanOrgans.First() == organ);
+            Transform child = transform.GetChild(i);
+            children.Add(child);
         }
+        
     }
 
     // Update is called once per frame
@@ -21,16 +23,11 @@ public class HumanLayerController : MonoBehaviour
     {
     }
 
-    public void ToggleOrgan(int index)
+    public void SetActiveChild(GameObject activeChild)
     {
-        GameObject organ = humanOrgans[index];
-        organ.SetActive(!organ.activeSelf);
-    }
-
-    public void StartAnimation(int index)
-    {
-        GameObject organ = humanOrgans[index];
-        Animator animation = organ.GetComponent<Animator>();
-        animation.Play("ArmAnimation");
+        foreach (var child in children)
+        {
+            child.gameObject.SetActive(child.gameObject.Equals(activeChild));
+        }
     }
 }

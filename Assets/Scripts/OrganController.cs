@@ -5,15 +5,12 @@ using UnityEngine.Serialization;
 
 public class OrganController : MonoBehaviour
 {
-    public AnimationClip actAnimation;
-
     private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        SetupAnimation();
     }
 
     // Update is called once per frame
@@ -21,30 +18,22 @@ public class OrganController : MonoBehaviour
     {
     }
 
-    private void SetupAnimation()
-    {
-        if (actAnimation == null) return;
-
-        animator.Play(actAnimation.name);
-        animator.enabled = false;
-    }
-
     public void ToggleActive()
     {
         gameObject.SetActive(!gameObject.activeSelf);
-        SetupAnimation();
     }
 
-    public void ToggleAnimation()
+    public void ToggleAnimation(AnimationClip animationClip)
     {
-        if (actAnimation == null) return;
-
-        if (!gameObject.activeSelf)
+        gameObject.SetActive(true);
+        
+        if (animator.enabled && animator.GetCurrentAnimatorStateInfo(0).IsName(animationClip.name))
         {
-            gameObject.SetActive(true);
-            SetupAnimation();
+            animator.enabled = false;
+            return;
         }
 
-        animator.enabled = !animator.enabled;
+        animator.enabled = true;
+        animator.Play(animationClip.name);
     }
 }

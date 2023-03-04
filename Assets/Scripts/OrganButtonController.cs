@@ -6,15 +6,18 @@ using UnityEngine;
 public class OrganButtonController : MonoBehaviour
 {
     public GameObject organ;
-    public bool isAnimation;
+    public AnimationClip animationClip;
 
     private Interactable interactable;
     private Animator animator;
+
+    private bool isAnimation;
 
     // Start is called before the first frame update
     void Start()
     {
         interactable = gameObject.GetComponent<Interactable>();
+        isAnimation = animationClip != null;
 
         if (isAnimation) animator = organ.GetComponent<Animator>();
     }
@@ -22,6 +25,14 @@ public class OrganButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        interactable.IsToggled = !isAnimation ? organ.activeSelf : animator.enabled;
+        if (isAnimation)
+        {
+            interactable.IsToggled =
+                animator.enabled && animator.GetCurrentAnimatorStateInfo(0).IsName(animationClip.name);
+        }
+        else
+        {
+            interactable.IsToggled = organ.activeSelf;
+        }
     }
 }
