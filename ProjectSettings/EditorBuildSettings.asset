@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TwoCubesScene.unity
     guid: c9d9ca152e8596b4a8b934e8b4a272ed
+  - enabled: 1
+    path: Assets/Scenes/HumanScene.unity
+    guid: 71e573da63f02804f97be643c2d783b4
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6361bbed1adc45a41adaa4e313b6ca17, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: f0ff44a7f66365d4db058c8c43c471aa, type: 2}
