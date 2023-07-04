@@ -72,3 +72,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .idea
+
+/[Aa]ssets/Samples
+/[Aa]ssets/BlenderModels/3d-male-anatomy-rigged-1387408
+/[Aa]ssets/Textures/MaleIcons
