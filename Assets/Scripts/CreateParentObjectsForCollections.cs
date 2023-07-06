@@ -1,48 +1,70 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class CreateParentObjectsForCollections : MonoBehaviour
 {
     [SerializeField] private List<string> collectionNames;
+    [SerializeField] private GameObject originalModel;
+    [SerializeField] private GameObject filterParent;
 
     public void UpdateObjects()
     {
         var collectionToObject = new Dictionary<string, GameObject>();
-        var filteredObjects = new GameObject("Filtered");
 
         var children = new List<GameObject>();
-        for (var i = 0; i < transform.childCount; i++)
+        for (var i = 0; i < originalModel.transform.childCount; i++)
         {
-            children.Add(transform.GetChild(i).gameObject);
+            children.Add(originalModel.transform.GetChild(i).gameObject);
         }
 
         foreach (var child in children)
         {
             var checkCollection = BelongsToCollection(child);
-            if (checkCollection != string.Empty)
+            if (child.name.Contains("combined"))
             {
-                Debug.Log($"{child.name} belongs to {checkCollection}");
-                if (!collectionToObject.TryGetValue(checkCollection, out var collectionObject))
-                {
-                    collectionObject = new GameObject(checkCollection)
-                    {
-                        transform =
-                        {
-                            parent = filteredObjects.transform
-                        }
-                    };
-                    collectionToObject.Add(checkCollection, collectionObject);
-                }
-
-                child.transform.parent = collectionObject.transform;
+                checkCollection = child.name;
             }
-            else
+            else if (checkCollection == string.Empty)
             {
                 Debug.LogWarning($"{child.name} doesn't belong to any collection");
+                continue;
             }
+
+            Debug.Log($"{child.name} belongs to {checkCollection}");
+            if (!collectionToObject.TryGetValue(checkCollection, out var collectionObject))
+            {
+                collectionObject = new GameObject(checkCollection)
+                {
+                    transform =
+                    {
+                        parent = filterParent.transform
+                    }
+                };
+                collectionToObject.Add(checkCollection, collectionObject);
+            }
+
+            if (!child.name.Contains("combined"))
+            {
+                child.name = child.name[(checkCollection.Length + 1)..];
+
+                var words = child.name.Split("_");
+                for (var i = 0; i < words.Length; i++)
+                {
+                    words[i] = words[i] switch
+                    {
+                        "L" => "left",
+                        "R" => "right",
+                        _ => words[i]
+                    };
+                }
+
+                child.name = string.Join("_", words);
+            }
+
+            child.transform.parent = collectionObject.transform;
         }
     }
 
