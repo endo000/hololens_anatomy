@@ -1,14 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SearchResultButtonConfig : MonoBehaviour
 {
     [SerializeField] private TMP_Text elementNameLabel;
 
     [SerializeField] private TMP_Text bodySystemLabel;
+
+    [SerializeField] private Interactable interactableScript;
+
+    [SerializeField] private string elementNameText;
+
+    [SerializeField] private string bodySystemText;
 
     public string ElementNameText
     {
@@ -32,7 +40,8 @@ public class SearchResultButtonConfig : MonoBehaviour
         }
     }
 
-    [SerializeField] private string elementNameText;
-
-    [SerializeField] private string bodySystemText;
+    public void OnClick(UnityAction unityAction)
+    {
+        interactableScript.OnClick.AddListener(unityAction);
+    }
 }

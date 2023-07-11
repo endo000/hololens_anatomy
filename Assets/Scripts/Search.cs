@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Search : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class Search : MonoBehaviour
     [SerializeField] private GameObject searchResultButtonPrefab;
     [SerializeField] private GameObject searchResultCollection;
 
+    [SerializeField] private UnityEvent onSearchItemClick;
+    [SerializeField] private GameObject displayItem;
+
     private TouchScreenKeyboard keyboard;
     private Dictionary<string, List<GameObject>> systemsAndElements;
 
@@ -27,11 +31,19 @@ public class Search : MonoBehaviour
     private string searchQuery;
     private bool runSearch;
 
+    private MeshFilter displayItemMeshFilter;
+    private MeshRenderer displayItemMeshRenderer;
+    private SkinnedMeshRenderer displayItemSkinnedMeshRenderer;
+
     private void Start()
     {
         gridObjectCollection = searchResultCollection.GetComponent<GridObjectCollection>();
 
         prefabStartPosition = searchResultButtonPrefab.transform.position;
+
+        displayItemMeshFilter = displayItem.GetComponent<MeshFilter>();
+        displayItemMeshRenderer = displayItem.GetComponent<MeshRenderer>();
+        // displayItemSkinnedMeshRenderer = displayItem.GetComponent<SkinnedMeshRenderer>();
 
         systemsAndElements = new Dictionary<string, List<GameObject>>();
         foreach (var system in systemsToSearch)
@@ -164,5 +176,17 @@ public class Search : MonoBehaviour
         var config = objectToConfigure.GetComponent<SearchResultButtonConfig>();
         config.ElementNameText = PrettyString(searchObject.name);
         config.BodySystemText = PrettyString(searchObject.transform.parent.name);
+        config.OnClick(() =>
+        {
+            Debug.Log(searchObject.transform.position);
+            var skinnedMeshRenderer = searchObject.GetComponent<SkinnedMeshRenderer>();
+            // displayItemSkinnedMeshRenderer.bounds = 
+            // displayItemSkinnedMeshRenderer.sharedMesh = skinnedMeshRenderer.sharedMesh;
+            // displayItemSkinnedMeshRenderer.sharedMaterials = skinnedMeshRenderer.sharedMaterials;
+            displayItemMeshFilter.sharedMesh = skinnedMeshRenderer.sharedMesh;
+            displayItemMeshRenderer.sharedMaterials = skinnedMeshRenderer.sharedMaterials;
+
+            onSearchItemClick.Invoke();
+        });
     }
 }

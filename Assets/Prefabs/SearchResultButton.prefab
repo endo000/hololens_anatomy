@@ -1654,8 +1654,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elementNameLabel: {fileID: 7926645577749804805}
   bodySystemLabel: {fileID: 8893834732695940425}
-  elementNameText: Test
-  bodySystemText: Test
+  interactableScript: {fileID: 2030621076452233754}
+  elementNameText: Example name
+  bodySystemText: Example system
 --- !u!1 &8940945151387051719
 GameObject:
   m_ObjectHideFlags: 0
