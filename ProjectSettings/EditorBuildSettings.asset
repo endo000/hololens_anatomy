@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.3/Demos - UX/BoundsControl/Scenes/BoundsControlExamples.unity
+    guid: 1e660854cfb3955469bbe155141377b3
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: facbfb83940fe0c4a8f6bc437bc19590
   - enabled: 1
     path: Assets/Scenes/BodyAnatomy.unity
     guid: 1d0c2bdbb9baece4d98a16e8c7b56880
-  - enabled: 0
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.3/Demos - HandTracking/Scenes/HandMenuExamples.unity
-    guid: 2792ec9767804e644906ab978f2eed23
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6361bbed1adc45a41adaa4e313b6ca17, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: f0ff44a7f66365d4db058c8c43c471aa, type: 2}
