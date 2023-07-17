@@ -42,6 +42,7 @@ public class SearchResultButtonConfig : MonoBehaviour
 
     public void OnClick(UnityAction unityAction)
     {
+        interactableScript.OnClick.RemoveAllListeners();
         interactableScript.OnClick.AddListener(unityAction);
     }
 }

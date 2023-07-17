@@ -10,6 +10,15 @@ public class HumanBodySystems : MonoBehaviour
     [SerializeField] private GameObject systemsParent;
     [SerializeField] private Interactable interactableScript;
 
+    [Serializable]
+    public class SystemCombination
+    {
+        public string hostSystem;
+        public string[] allowedSystems;
+    }
+
+    [SerializeField] private SystemCombination[] systemCombinations;
+
     private void Update()
     {
         interactableScript.IsToggled = system.activeSelf;
@@ -17,7 +26,7 @@ public class HumanBodySystems : MonoBehaviour
 
     public void ToggleSystem()
     {
-        HideOtherSystems();
+        // HideOtherSystems();
         var isActive = !system.activeSelf;
         system.SetActive(isActive);
         interactableScript.IsToggled = isActive;

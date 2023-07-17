@@ -1050,6 +1050,39 @@ MonoBehaviour:
   system: {fileID: 0}
   systemsParent: {fileID: 0}
   interactableScript: {fileID: 7060061426454913058}
+  systemCombinations:
+  - hostSystem: catilage_tissue
+    allowedSystems:
+    - connective_tissue
+    - lymphatic_system
+    - muscular_system
+    - nervous_system
+    - organs
+  - hostSystem: connective_tissue
+    allowedSystems: []
+  - hostSystem: integumentary_system
+    allowedSystems: []
+  - hostSystem: lymphatic_system
+    allowedSystems: []
+  - hostSystem: muscular_system
+    allowedSystems:
+    - cartilage_tissue
+    - connective_tissue
+    - lymphatic_system
+    - nervous_system
+    - organs
+    - skeletal_system
+  - hostSystem: nervous_system
+    allowedSystems: []
+  - hostSystem: organs
+    allowedSystems: []
+  - hostSystem: skeletal_system
+    allowedSystems: []
+  - hostSystem: vascular_system
+    allowedSystems:
+    - muscular_system
+    - skeletal_system
+    - organs
 --- !u!1 &845873822453350186
 GameObject:
   m_ObjectHideFlags: 0
