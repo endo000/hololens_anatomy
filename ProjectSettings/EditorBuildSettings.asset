@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.3/Demos - UX/BoundsControl/Scenes/BoundsControlExamples.unity
     guid: 1e660854cfb3955469bbe155141377b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: facbfb83940fe0c4a8f6bc437bc19590
   - enabled: 1

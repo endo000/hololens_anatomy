@@ -4174,7 +4174,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3993299413834294583}
         m_TargetAssemblyTypeName: Toggle, Assembly-CSharp
-        m_MethodName: ToggleObjects
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6129,7 +6129,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5280509718886894212}
         m_TargetAssemblyTypeName: Toggle, Assembly-CSharp
-        m_MethodName: ToggleObjects
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
