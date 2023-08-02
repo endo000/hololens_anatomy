@@ -41,6 +41,9 @@ public class ItemSearchController : MonoBehaviour
     [Header("Events")] [Tooltip("Event invoked when a search result item is selected.")] [SerializeField]
     private UnityEvent onItemSelected;
 
+    [Tooltip("Script to toggle or show only one object.")] [SerializeField]
+    private InspectObjectToggler inspectObjectToggler;
+
     private TouchScreenKeyboard touchScreenKeyboard;
     private Dictionary<string, List<GameObject>> systemElementsDictionary;
 
@@ -49,8 +52,6 @@ public class ItemSearchController : MonoBehaviour
 
     private string currentSearchQuery;
     private bool isPerformingSearch;
-
-    private GameObject selectedItem;
 
     private void Start()
     {
@@ -228,13 +229,7 @@ public class ItemSearchController : MonoBehaviour
         config.BodySystemText = FormatStringForDisplay(foundItemObject.transform.parent.name);
         config.OnClick(() =>
         {
-            if (selectedItem)
-            {
-                selectedItem.SetActive(false);
-            }
-
-            foundItemObject.SetActive(true);
-            selectedItem = foundItemObject;
+            inspectObjectToggler.ShowObject(foundItemObject);
             onItemSelected.Invoke();
         });
     }
