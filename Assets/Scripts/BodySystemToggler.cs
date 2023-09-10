@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,6 +17,8 @@ public class BodySystemToggler : MonoBehaviour
 
     [Tooltip("The Interactable script that allows toggling the visibility of the system.")] [SerializeField]
     private Interactable interactable;
+    
+    [SerializeField] private List<GameObject> allowedSystems;
 
     private void Update()
     {
@@ -32,19 +35,29 @@ public class BodySystemToggler : MonoBehaviour
         system.SetActive(isActive);
         interactable.IsToggled = isActive;
 
-        // Uncomment the following line to hide other systems when one is active
-        // HideOtherSystems();
+        if (isActive)
+        {
+            HideExtraSystems();
+        }
     }
 
     /// <summary>
     /// Hides other human body systems that are not part of the allowed systems for the currently active host system.
     /// </summary>
-    private void HideOtherSystems()
+    private void HideExtraSystems()
     {
         var parentTransform = systemsParent.transform;
         for (var i = 0; i < parentTransform.childCount; i++)
         {
-            parentTransform.GetChild(i).gameObject.SetActive(false);
+            var systemToCheck = parentTransform.GetChild(i).gameObject;
+            if (systemToCheck == system)
+            {
+                continue;
+            }
+            if (systemToCheck.activeSelf && !allowedSystems.Contains(systemToCheck))
+            {
+                systemToCheck.SetActive(false);
+            }
         }
     }
 }

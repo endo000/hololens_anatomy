@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// This script handles the search functionality
@@ -19,7 +21,7 @@ public class ItemSearchController : MonoBehaviour
     [Tooltip("The list of GameObjects representing the systems that can be searched.")] [SerializeField]
     private List<GameObject> searchableSystems;
 
-    [Range(1, 20)] [Tooltip("The maximum number of items to display in the search results.")] [SerializeField]
+    [Range(1, 50)] [Tooltip("The maximum number of items to display in the search results.")] [SerializeField]
     private int maxDisplayedItems;
 
     [Header("Simulate search")]
@@ -35,20 +37,22 @@ public class ItemSearchController : MonoBehaviour
     [SerializeField]
     private GameObject foundItemPrefab;
 
+    [Tooltip("Object that implements scrolling functionality for the search results.")] [SerializeField]
+    private ScrollingObjectCollection scrollingObjectCollection;
+    
     [Tooltip("The collection where found item buttons will be displayed.")] [SerializeField]
     private GameObject foundItemCollection;
 
     [Header("Events")] [Tooltip("Event invoked when a search result item is selected.")] [SerializeField]
     private UnityEvent onItemSelected;
 
-    [Tooltip("Script to toggle or show only one object.")] [SerializeField]
-    private InspectObjectToggler inspectObjectToggler;
+    [FormerlySerializedAs("inspectObjectToggler")] [Tooltip("Script to toggle or show only one object.")] [SerializeField]
+    private InspectObjectController inspectObjectController;
 
     private TouchScreenKeyboard touchScreenKeyboard;
     private Dictionary<string, List<GameObject>> systemElementsDictionary;
 
     private GridObjectCollection gridObjectCollection;
-    private Vector3 itemPrefabStartPosition;
 
     private string currentSearchQuery;
     private bool isPerformingSearch;
@@ -56,8 +60,6 @@ public class ItemSearchController : MonoBehaviour
     private void Start()
     {
         gridObjectCollection = foundItemCollection.GetComponent<GridObjectCollection>();
-
-        itemPrefabStartPosition = foundItemPrefab.transform.position;
 
         systemElementsDictionary = new Dictionary<string, List<GameObject>>();
 
@@ -171,19 +173,17 @@ public class ItemSearchController : MonoBehaviour
             {
                 var child = gridObjectCollection.transform.GetChild(i);
                 searchButton = child.gameObject;
-                ConfigureItemDisplay(searchButton, foundItem);
             }
             else
             {
-                var itemPosition = itemPrefabStartPosition;
-                itemPosition.y = -1 * (i + 0.5f) * gridObjectCollection.CellHeight;
-
-                searchButton = Instantiate(foundItemPrefab, itemPosition, Quaternion.identity,
+                searchButton = Instantiate(foundItemPrefab, Vector3.zero, Quaternion.identity,
                     foundItemCollection.transform);
-
-                ConfigureItemDisplay(searchButton, foundItem);
             }
+            gridObjectCollection.UpdateCollection();
+            scrollingObjectCollection.UpdateContent();
+            scrollingObjectCollection.MoveToIndex(0);
 
+            ConfigureItemDisplay(searchButton, foundItem);
             searchButton.SetActive(true);
         }
 
@@ -229,7 +229,7 @@ public class ItemSearchController : MonoBehaviour
         config.BodySystemText = FormatStringForDisplay(foundItemObject.transform.parent.name);
         config.OnClick(() =>
         {
-            inspectObjectToggler.ShowObject(foundItemObject);
+            inspectObjectController.ShowObject(foundItemObject);
             onItemSelected.Invoke();
         });
     }
