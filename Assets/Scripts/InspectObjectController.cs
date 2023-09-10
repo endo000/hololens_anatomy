@@ -1,8 +1,12 @@
+using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
 using TMPro;
 using UnityEngine;
 
 public class InspectObjectController : MonoBehaviour
 {
+    [SerializeField] private ColliderReset colliderReset;
+    [SerializeField] private BoundsControl boundsControl;
+    
     [SerializeField] private GameObject descriptionObject;
     [SerializeField] private TMP_Text descriptionText;
 
@@ -45,5 +49,8 @@ public class InspectObjectController : MonoBehaviour
 
         objectToShow.SetActive(true);
         activeObject = objectToShow;
+        
+        colliderReset.SetColliderSizeToZero();
+        boundsControl.UpdateBounds();
     }
 }
