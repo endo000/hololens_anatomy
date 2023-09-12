@@ -20,6 +20,9 @@ public class HierarchicalReset : MonoBehaviour
     /// <param name="objectTransform">The transform of the parent object whose children will have their transforms saved.</param>
     private void SaveOriginalTransformsRecursively(Transform objectTransform)
     {
+        originalTransforms.Add(objectTransform,
+            new Tuple<Vector3, Quaternion>(objectTransform.position, objectTransform.rotation));
+        
         foreach (Transform child in objectTransform)
         {
             originalTransforms.Add(child, new Tuple<Vector3, Quaternion>(child.position, child.rotation));
