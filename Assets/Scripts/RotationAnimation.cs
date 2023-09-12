@@ -23,9 +23,11 @@ public class RotationAnimation : MonoBehaviour
     private void PlayAnimation(float deltaTime)
     {
         var deltaAngle = animationSpeed * deltaTime * 360;
-        
-        var newAngle = transform.rotation.eulerAngles.y + deltaAngle;
 
-        transform.rotation = Quaternion.Euler(0, newAngle, 0);
+        var oldRotation = transform.rotation.eulerAngles;
+
+        var newAngle = oldRotation.y + deltaAngle;
+
+        transform.rotation = Quaternion.Euler(oldRotation.x, newAngle, oldRotation.z);
     }
 }
