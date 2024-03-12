@@ -7,10 +7,12 @@ using UnityEngine;
 /// </summary>
 public class HierarchicalReset : MonoBehaviour
 {
-    private readonly Dictionary<Transform, Tuple<Vector3, Quaternion>> originalTransforms = new();
+    private readonly Dictionary<Transform, Tuple<Vector3, Quaternion, Vector3>> originalTransforms = new();
 
     private void Start()
     {
+        originalTransforms.Add(transform, new Tuple<Vector3, Quaternion, Vector3>(transform.position, transform.rotation, transform.localScale));
+        
         SaveOriginalTransformsRecursively(transform);
     }
 
@@ -20,12 +22,9 @@ public class HierarchicalReset : MonoBehaviour
     /// <param name="objectTransform">The transform of the parent object whose children will have their transforms saved.</param>
     private void SaveOriginalTransformsRecursively(Transform objectTransform)
     {
-        originalTransforms.Add(objectTransform,
-            new Tuple<Vector3, Quaternion>(objectTransform.position, objectTransform.rotation));
-        
         foreach (Transform child in objectTransform)
         {
-            originalTransforms.Add(child, new Tuple<Vector3, Quaternion>(child.position, child.rotation));
+            originalTransforms.Add(child, new Tuple<Vector3, Quaternion, Vector3>(child.position, child.rotation, child.localScale));
             SaveOriginalTransformsRecursively(child);
         }
     }
@@ -39,6 +38,7 @@ public class HierarchicalReset : MonoBehaviour
         {
             entry.Key.position = entry.Value.Item1;
             entry.Key.rotation = entry.Value.Item2;
+            entry.Key.localScale = entry.Value.Item3;
         }
     }
 }

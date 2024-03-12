@@ -1,15 +1,16 @@
 using System;
+using DefaultNamespace;
 using UnityEngine;
 
-public class RotationAnimation : MonoBehaviour
+public class RotationAnimation : MonoBehaviour, IToggle
 {
     [Range(-20, 20)] [SerializeField] private float animationSpeed = 1;
 
-    private bool isToggled;
+    public bool IsToggled { get; set; }
 
     private void Update()
     {
-        if (isToggled)
+        if (IsToggled)
         {
             PlayAnimation(Time.deltaTime);
         }
@@ -17,7 +18,12 @@ public class RotationAnimation : MonoBehaviour
 
     public void Toggle()
     {
-        isToggled = !isToggled;
+        IsToggled = !IsToggled;
+    }
+
+    public void TurnOff()
+    {
+        IsToggled = false;
     }
 
     private void PlayAnimation(float deltaTime)
