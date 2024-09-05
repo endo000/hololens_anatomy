@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: BodySystemsIconSet
   m_EditorClassIdentifier: 
   quadIcons:
-  - {fileID: 2800000, guid: f402373e0f618934faf3e3a9e2b894b8, type: 3}
-  - {fileID: 2800000, guid: 748af40eb2740e74c92a0153afc1f31b, type: 3}
-  - {fileID: 2800000, guid: 9936ead8fcac59b459c2fb2749197f90, type: 3}
-  - {fileID: 2800000, guid: f80eeb60679e3ec4fbdbed663ca62527, type: 3}
-  - {fileID: 2800000, guid: d6f53b3ea8d71ca43922941d743e4528, type: 3}
-  - {fileID: 2800000, guid: 4e65e3c99a058af4d9c9d7531456de84, type: 3}
-  - {fileID: 2800000, guid: 6320f32a7c8575840ae60700dd804fb6, type: 3}
-  - {fileID: 2800000, guid: dbd72c8750db368419bce077f719e492, type: 3}
-  - {fileID: 2800000, guid: 03959933965023a43a0fe3d3380c8e39, type: 3}
-  - {fileID: 2800000, guid: 993c958387e9cc446bc222262b1b6020, type: 3}
+  - {fileID: 2800000, guid: 32b5ca36f21ee7e4aab7b49bed8e7e4a, type: 3}
+  - {fileID: 2800000, guid: 6040ac9826e64e3488e7307bd1d1f258, type: 3}
+  - {fileID: 2800000, guid: d2d93968c8530a2419ac2d5b7f98cc64, type: 3}
+  - {fileID: 2800000, guid: 48b9543d58d1deb4084d626cab1f4eb4, type: 3}
+  - {fileID: 2800000, guid: a6631b12fc8d9a240a01f837eb1080e9, type: 3}
+  - {fileID: 2800000, guid: d67b076be29497d48b704f9c0e301077, type: 3}
+  - {fileID: 2800000, guid: 44a8b97d866482e459206c57b48083c9, type: 3}
+  - {fileID: 2800000, guid: c3f5cd6b499e45845acf0b73911827e3, type: 3}
+  - {fileID: 2800000, guid: 566d126bfa9864f469a4b78bfd05e853, type: 3}
+  - {fileID: 2800000, guid: 6db3f4ba14d01b64da5505dcaf07b274, type: 3}
   - {fileID: 2800000, guid: f9f09dbbd543cc34da8c6bc4885994dc, type: 3}
   spriteIcons:
   - {fileID: 21300000, guid: 6320f32a7c8575840ae60700dd804fb6, type: 3}
